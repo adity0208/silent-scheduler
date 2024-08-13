@@ -1,0 +1,27 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+allprojects {
+    repositories {
+        google() // Google's Maven repository for Android dependencies
+        mavenCentral() // Central repository for various libraries
+    }
+}
+
+// Setting the root project's build directory
+rootProject.buildDir = "../build"
+
+// Configure subprojects
+subprojects {
+    // Set each subproject's build directory to be within the root project's build directory
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+
+// Ensure all subprojects depend on the evaluation of the ":app" project
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+// Custom clean task to delete the build directory
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
